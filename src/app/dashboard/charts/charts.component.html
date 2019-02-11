@@ -1,0 +1,30 @@
+<div class="charts-container" *ngIf="rocket">
+  <div class="chart-container">
+    <ngx-charts-line-chart
+      [scheme]="colorScheme"
+      [results]="rocket.altitudeOverTime"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [autoScale]="true">
+    </ngx-charts-line-chart>
+    <div class="legend">Current altitude</div>
+    <div class="current-value">{{rocket.altitude | number : '1.0-0'}}</div>
+    <div class="current-value-unit">meters</div>
+  </div>
+  <div class="chart-container">
+    <ngx-charts-line-chart
+      [scheme]="colorScheme"
+      [results]="rocket.positionOverTime"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [autoScale]="true">
+    </ngx-charts-line-chart>
+    <div class="legend">Position over time</div>
+    <div class="current-value">{{rocket.position | number : '1.0-0'}}</div>
+    <div class="current-value-unit">meters</div>
+  </div>
+</div>

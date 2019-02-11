@@ -1,0 +1,21 @@
+<div class="image-container" *ngIf="rocket">
+  <div class="rocket-container">
+    <div class="line" [style.transform]="'rotate(-60deg)'"></div>
+    <div class="line" [style.transform]="'rotate(-30deg)'"></div>
+    <div class="line" [style.transform]="'rotate(0)'"></div>
+    <div class="line" [style.transform]="'rotate(30deg)'"></div>
+    <div class="line" [style.transform]="'rotate(60deg)'"></div>
+    <div class="line" [style.transform]="'rotate(90deg)'"></div>
+    <div class="rocket" [style.transform]="'rotate('+ rocket.angle +'deg)'"></div>
+    <div class="status" [ngClass]="rocket.status">{{rocket.status}}</div>
+  </div>
+  <div class="legend">Rocket angle</div>
+  <div class="current-value">{{rocket.angle | number : '1.0-0'}}</div>
+  <div class="current-value-unit">Degrees</div>
+  <div class="legend">Thrust</div>
+  <div class="current-value">{{rocket.thrustPercentage * 100 | number : '1.0-0'}}%</div>
+  <div class="current-value-unit">{{rocket.thrust | number : '1.0-0'}} kg</div>
+  <div class="legend">Fuel</div>
+  <div class="current-value">{{rocket.fuelPercentage * 100 | number : '1.0-0'}}%</div>
+  <div class="current-value-unit">{{rocket.fuelMass | number : '1.0-0'}} kg</div>
+</div>

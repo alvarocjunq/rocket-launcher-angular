@@ -1,0 +1,11 @@
+<div class="background"></div>
+<div class="login-container">
+  <form (submit)="login($event)">
+    <span class="title">Welcome to <strong>Rocket Launcher</strong></span>
+    <span fxFlex></span>
+    <input matInput placeholder="Insert your username" class="username-input" 
+      [formControl]="usernameFormControl" required autofocus>
+    <button mat-raised-button color="accent" type="submit" 
+      [disabled]="usernameFormControl.invalid">Enter</button>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<div class="controls-container">
+  <ng-container *ngIf="rocket && (rocket.status == RocketStatus.READY || rocket.status == RocketStatus.LAUNCHED); else launchContainer">
+    <button mat-raised-button class="thrust-up" (click)="rocket.increaseThrust()">+</button>
+    <button mat-raised-button class="thrust-down" (click)="rocket.decreaseThrust()">-</button>
+    <button mat-raised-button class="rotate-left" (click)="rocket.rotateLeft()"><</button>
+    <button mat-raised-button class="rotate-right" (click)="rocket.rotateRight()">></button>
+    <button mat-raised-button class="deploy" color="accent" (click)="rocket.deploySatellite()">Deploy</button>
+    <button mat-raised-button class="self-destroy" color="warn" (click)="rocket.selfDestroy()">Self-Destroy</button>
+  </ng-container>
+
+  <ng-template #launchContainer>
+    <button mat-raised-button class="deploy" color="accent" (click)="launchRocket()">Launch Rocket</button>
+  </ng-template>
+</div>

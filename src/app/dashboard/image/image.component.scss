@@ -1,0 +1,60 @@
+@import '../../../styles/theme';
+
+
+.image-container {
+  position: absolute;
+  width: 300px;
+  top: 0;
+  left: 0;
+
+  .rocket-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 300px;
+    border: 1px solid #ccc;
+
+    .rocket {
+      position: absolute;
+      top: 35px;
+      left: 100px;
+      width: 0; 
+      height: 0;
+      transform-origin: 50% 120px;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 200px solid black;
+    }
+
+    .line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      background: #ccc;
+      top: 0;
+      left: 149.5px;
+      transform-origin: 50% 50%;
+    }
+
+    .status {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 250px;
+      transform: translate(-50%, -50%);
+      padding: 12px 32px;
+      border-radius: 6px;
+      font-size: 1.2em;
+      text-transform: capitalize;
+      background: mat-color($app-warn, 500);
+      color: white;
+      text-align: center;
+      &.ready, &.launched {
+        display: none;
+      }
+      &.deployed {
+        background: #080;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<h4 mat-dialog-title>{{ data.title }}</h4>
+<mat-dialog-content>{{ data.text }}</mat-dialog-content>
+<mat-dialog-actions>
+  <div fxFlex></div>
+  <div *ngIf="data.type === types().INFO || data.type === types().ERROR">
+    <button mat-raised-button mat-dialog-close color="primary">Close</button>
+  </div>
+  <div *ngIf="data.type === types().QUESTION || data.type === types().WARNING">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button mat-dialog-close [color]="data.type == types().QUESTION ? 'primary' : 'warn'"
+            (click)="confirm()">Yes, I confirm</button>
+  </div>
+</mat-dialog-actions>
