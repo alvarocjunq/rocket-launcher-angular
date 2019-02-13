@@ -24,7 +24,7 @@ export class AppWebSocket {
     this.websocket = webSocket(`${environment.api.websocket}${this.url}`);
     this.subscription = this.websocket.subscribe(
       response => {
-
+        this.messages.next(response);
       },
       error => {
         setTimeout(() => this.connect(), 3000);

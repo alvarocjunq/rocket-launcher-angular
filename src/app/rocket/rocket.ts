@@ -47,14 +47,14 @@ export class Rocket {
   drag = 0;
 
   // Charts
-  altitudeOverTime = [{name: 'Altitude', series: []}];
-  positionOverTime = [{name: 'Position', series: []}];
-  fuelOverTime = [{name: 'Fuel', series: []}];
+  altitudeOverTime = [{ name: 'Altitude', series: [] }];
+  positionOverTime = [{ name: 'Position', series: [] }];
+  fuelOverTime = [{ name: 'Fuel', series: [] }];
 
   constructor(
     private service: RocketService,
     public uuid: string,
-  ) {}
+  ) { }
 
   deploySatellite(): void {
     this.service.deploySatellite(this).subscribe();
@@ -85,20 +85,51 @@ export class Rocket {
     const data = message.data;
     this.status = data.status;
 
+    // TODO: seria mais divertido se corresse o objeto e procura-se os arrays ao invés de pegar um a um =)
+    const obj = {
+      ...data,
+      ...this.getRepeatedValue(data.gps),
+      ...this.getRepeatedValue(data.gyro),
+      ...this.getRepeatedValue(data.accelerometer)
+    };
 
+    // Desse modo, se o serviço devolver algum campo a mais, basta declara-lo
+    Object.keys(obj).forEach(key => {
+      this[this.toLowerCamelCase(key)] = obj[key];
+    });
 
     // Don't change code from here
     this.updateChartsData();
   }
 
+  private toLowerCamelCase(str: string) {
+    return str
+      .split('_')
+      .map((item, index) => {
+        if (index === 0) { return item; }
+        return item.charAt(0).toUpperCase() + item.substr(1);
+      })
+      .join('');
+  }
+
+  private getRepeatedValue(arr: any[]) {
+    const field = Object.keys(arr[0])[0];
+    const res = arr.reduce((acumulator, item) => {
+      acumulator[item[field]] = ++acumulator[item[field]] || 1;
+      return acumulator;
+    }, {});
+
+    return arr.find(item => item[field] === +Object.keys(res).find(key => res[key] === 2))
+  }
+
   private updateChartsData() {
-    this.altitudeOverTime[0].series.push({value: this.altitude, name: this.flightTime});
+    this.altitudeOverTime[0].series.push({ value: this.altitude, name: this.flightTime });
     this.altitudeOverTime = [...this.altitudeOverTime];
 
-    this.positionOverTime[0].series.push({value: this.position, name: this.flightTime});
+    this.positionOverTime[0].series.push({ value: this.position, name: this.flightTime });
     this.positionOverTime = [...this.positionOverTime];
 
-    this.fuelOverTime[0].series.push({value: this.fuelPercentage * 100, name: this.flightTime});
+    this.fuelOverTime[0].series.push({ value: this.fuelPercentage * 100, name: this.flightTime });
     this.fuelOverTime = [...this.fuelOverTime];
   }
 }
